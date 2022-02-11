@@ -29,9 +29,6 @@ RUN curl -L -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/relea
     unzip -d /tmp/protoc /tmp/protoc.zip && \
     mv /tmp/protoc/bin/protoc $GOPATH/bin
 
-#添加ffmpeg压缩包到镜像中的/tmp目录
-ADD /ffmpeg_4.4.orig.tar.xz /tmp
-
 # 安装 ffmpeg
 USER root
 RUN ls /tmp/ && \
