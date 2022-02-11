@@ -29,6 +29,25 @@ RUN curl -L -o /tmp/protoc.zip https://github.com/protocolbuffers/protobuf/relea
     unzip -d /tmp/protoc /tmp/protoc.zip && \
     mv /tmp/protoc/bin/protoc $GOPATH/bin
 
+#添加ffmpeg压缩包到镜像中的/tmp目录
+ADD /ffmpeg_4.4.orig.tar.xz /tmp
+
+# 安装 ffmpeg
+USER root
+RUN ls /tmp/ && \
+    apt-get update && \
+    apt-get upgrade && \
+    apt-get install -y ffmpeg
+    # apt-get install xz-utils && \
+    # apt-get install yasm && \
+    # curl -L -o /tmp/ffmpeg_4.4.orig.tar.xz https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/ffmpeg/7:4.4-6ubuntu5/ffmpeg_4.4.orig.tar.xz && \
+    # cd /tmp && \
+    # tar -xvf /tmp/ffmpeg_4.4.orig.tar.xz && \
+    # cd /tmp/ffmpeg-4.4 && \
+    # ./configure && \
+    # make && \
+    # make install && \
+
 # 安装 protoc-gen-go
 USER root
 RUN go get -u github.com/golang/protobuf/protoc-gen-go@v1.4.0
